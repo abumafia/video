@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TikTok Clone - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      scroll-snap-type: y mandatory;
+    }
+    .video-section {
+      scroll-snap-align: start;
+    }
+  </style>
+</head>
+<body class="bg-black text-white overflow-y-scroll h-screen">
+
+  <div id="videoContainer" class="space-y-0">
+
+    <!-- VIDEO 1 -->
+    <section class="video-section h-screen relative">
+      <video autoplay muted loop class="w-full h-full object-cover absolute inset-0 z-0">
+        <source src="media/video1.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Overlay -->
+      <div class="relative z-10 flex flex-col justify-between h-full px-4 py-6 bg-black/30 backdrop-blur-sm">
+
+        <div class="text-xl font-bold">TikTok Clone</div>
+
+        <div class="flex justify-between items-end">
+          <!-- Left -->
+          <div>
+            <h2 class="font-semibold">
+                <a href="profile.html?user=user1" class="hover:underline">@user1</a>
+              </h2>              
+            <p class="text-sm">#clone #fun</p>
+            <p class="text-xs mt-1">🎵 Music: Cool Beat</p>
+          </div>
+
+          <!-- Right actions -->
+          <div class="flex flex-col items-center gap-4">
+            <button onclick="toggleLike(this)" class="like-btn flex flex-col items-center transition">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/hearts.png" class="w-6 like-icon"/>
+              <span class="like-count text-sm">12</span>
+            </button>
+            <button onclick="showComments(this)" data-modal-id="modal1" class="flex flex-col items-center">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" class="w-6"/>
+              <span class="text-sm">3</span>
+            </button>
+            <button class="flex flex-col items-center">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/share.png" class="w-6"/>
+              <span class="text-sm">Share</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for video 1 -->
+      <div id="modal1" class="comment-modal hidden fixed bottom-0 left-0 w-full bg-white text-black max-h-[50%] overflow-y-auto rounded-t-2xl shadow-lg z-50">
+        <div class="p-4 relative">
+          <button onclick="closeComments(this)" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+          <h3 class="font-bold text-lg mb-2">💬 Izohlar</h3>
+          <ul class="space-y-2 text-sm">
+            <li><strong>@ali:</strong> Zo‘r video!</li>
+            <li><strong><a href="profile.html?user=ali" class="text-blue-600 hover:underline"></a>@sara:</a></strong> Judayam yoqdi 👏</li>
+            <li><strong>@nodir:</strong> 🔥🔥🔥</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEO 2 -->
+    <section class="video-section h-screen relative">
+      <video autoplay muted loop class="w-full h-full object-cover absolute inset-0 z-0">
+        <source src="media/video2.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Overlay -->
+      <div class="relative z-10 flex flex-col justify-between h-full px-4 py-6 bg-black/30 backdrop-blur-sm">
+        <div class="text-xl font-bold">TikTok Clone</div>
+        <div class="flex justify-between items-end">
+          <div>
+            <h2 class="font-semibold">
+                <a href="profile.html?user=design_girl" class="hover:underline">@design_girl</a>
+              </h2>
+            <p class="text-sm">#creative #inspiration</p>
+            <p class="text-xs mt-1">🎵 Music: Inspire</p>
+          </div>
+          <div class="flex flex-col items-center gap-4">
+            <button onclick="toggleLike(this)" class="like-btn flex flex-col items-center transition">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/hearts.png" class="w-6 like-icon"/>
+              <span class="like-count text-sm">25</span>
+            </button>
+            <button onclick="showComments(this)" data-modal-id="modal2" class="flex flex-col items-center">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" class="w-6"/>
+              <span class="text-sm">5</span>
+            </button>
+            <button class="flex flex-col items-center">
+              <img src="https://img.icons8.com/ios-filled/50/ffffff/share.png" class="w-6"/>
+              <span class="text-sm">Share</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal for video 2 -->
+      <div id="modal2" class="comment-modal hidden fixed bottom-0 left-0 w-full bg-white text-black max-h-[50%] overflow-y-auto rounded-t-2xl shadow-lg z-50">
+        <div class="p-4 relative">
+          <button onclick="closeComments(this)" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+          <h3 class="font-bold text-lg mb-2">💬 Izohlar</h3>
+          <ul class="space-y-2 text-sm">
+            <li><strong>@sofi:</strong> Design mukammal!</li>
+            <li><strong>@timur:</strong> Ranglar zo‘r tanlangan</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleLike(btn) {
+      const icon = btn.querySelector('.like-icon');
+      const count = btn.querySelector('.like-count');
+      let num = parseInt(count.textContent);
+
+      if (icon.classList.contains('liked')) {
+        icon.src = "https://img.icons8.com/ios-filled/50/ffffff/hearts.png";
+        icon.classList.remove('liked');
+        count.textContent = num - 1;
+      } else {
+        icon.src = "https://img.icons8.com/ios-filled/50/fa314a/hearts.png";
+        icon.classList.add('liked');
+        count.textContent = num + 1;
+
+        // ❤️ animatsiyasi
+        const anim = document.createElement("div");
+        anim.textContent = "❤️";
+        anim.className = "absolute text-4xl animate-bounce top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none";
+        btn.appendChild(anim);
+        setTimeout(() => anim.remove(), 600);
+      }
+    }
+
+    function showComments(button) {
+      const modalId = button.getAttribute("data-modal-id");
+      const modal = document.getElementById(modalId);
+      modal.classList.remove("hidden");
+    }
+
+    function closeComments(button) {
+      const modal = button.closest(".comment-modal");
+      modal.classList.add("hidden");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hallaym Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="flex justify-between items-center px-4 py-3 bg-white shadow">
+    <h1 class="text-2xl font-bold">Hallaym Profile</h1>
+    <a href="index.html" class="text-blue-600 hover:underline">🏠 Home</a>
+  </header>
+
+  <main class="max-w-3xl mx-auto mt-6 p-4 bg-white rounded-xl shadow">
+    <!-- Profile Info -->
+    <div class="text-center">
+      <img id="profile-avatar" src="" alt="Avatar" class="mx-auto rounded-full w-28 h-28 border-4 border-blue-400 object-cover" />
+      <h2 id="profile-name" class="mt-2 text-xl font-semibold">@user</h2>
+      <p id="profile-tagline" class="text-gray-500 text-sm">...</p>
+
+      <!-- Stats -->
+      <div class="flex justify-center gap-6 mt-4 text-sm text-gray-700">
+        <div>
+          <span id="followers" class="block text-lg font-bold">0</span>
+          <span>Followers</span>
+        </div>
+        <div>
+          <span id="following" class="block text-lg font-bold">0</span>
+          <span>Following</span>
+        </div>
+        <div>
+          <span id="likes" class="block text-lg font-bold">0</span>
+          <span>Likes</span>
+        </div>
+        <div>
+          <span id="views" class="block text-lg font-bold">0</span>
+          <span>Views</span>
+        </div>
+        <div>
+          <span id="posts" class="block text-lg font-bold">0</span>
+          <span>Posts</span>
+        </div>
+      </div>
+
+      <!-- Follow Button -->
+      <button id="followBtn" class="mt-4 px-4 py-1 text-sm font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 transition">
+        Follow
+      </button>
+    </div>
+
+    <!-- User Videos -->
+    <section class="mt-8">
+      <h3 class="text-lg font-semibold mb-3">🎬 Yuklangan videolar</h3>
+      <div id="user-videos" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    </section>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get("user");
+
+    const users = {
+      user1: {
+        name: "@user1",
+        avatar: "https://i.ibb.co/YB8nX8m/user1.png",
+        tagline: "🎯 Videolarim siz uchun!",
+        followers: 212,
+        following: 98,
+        likes: 1040,
+        views: 30300,
+        videos: ["media/video1.mp4", "media/video2.mp4"]
+      },
+      user2: {
+        name: "@design_girl",
+        avatar: "https://i.ibb.co/TL4Qhxh/user2.png",
+        tagline: "💃 Harakat bu hayot!",
+        followers: 4520,
+        following: 300,
+        likes: 55000,
+        views: 240000,
+        videos: ["media/video1.mp4", "media/video2.mp4"]
+      },
+      user3: {
+        name: "@coderX",
+        avatar: "https://i.ibb.co/D5WrFCk/user3.png",
+        tagline: "👨‍💻 Kod bilan yashayman!",
+        followers: 780,
+        following: 140,
+        likes: 8900,
+        views: 111000,
+        videos: ["code1.mp4"]
+      }
+    };
+
+    const user = users[username];
+
+    if (user) {
+      document.getElementById("profile-name").textContent = user.name;
+      document.getElementById("profile-avatar").src = user.avatar;
+      document.getElementById("profile-tagline").textContent = user.tagline;
+
+      document.getElementById("followers").textContent = user.followers;
+      document.getElementById("following").textContent = user.following;
+      document.getElementById("likes").textContent = user.likes;
+      document.getElementById("views").textContent = user.views;
+      document.getElementById("posts").textContent = user.videos.length;
+
+      const videoContainer = document.getElementById("user-videos");
+      user.videos.forEach(src => {
+        const vid = document.createElement("video");
+        vid.src = src;
+        vid.controls = true;
+        vid.className = "rounded-lg shadow";
+        videoContainer.appendChild(vid);
+      });
+    } else {
+      document.body.innerHTML = `<h2 class="text-center text-red-500 mt-20 text-xl">❌ Foydalanuvchi topilmadi!</h2>`;
+    }
+
+    // Follow Button
+    const followBtn = document.getElementById("followBtn");
+    let followed = false;
+    followBtn?.addEventListener("click", () => {
+      followed = !followed;
+      followBtn.textContent = followed ? "Followed" : "Follow";
+      followBtn.classList.toggle("bg-blue-500", !followed);
+      followBtn.classList.toggle("bg-green-500", followed);
+    });
+  </script>
+</body>
+</html>
